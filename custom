@@ -1,0 +1,22 @@
+
+var arr = temp.responses.body ? temp.responses.body : 0
+
+const myAction = async (arr) => {
+    var Newoptions = []
+    arr.forEach(element => {
+        Newoptions.push({ label: element.name, value: element.currencies.map((item, index) => (item.code)) })
+    });
+
+    const payloads = await bp.cms.renderElement(
+        'dropdown',
+        {
+            message: '{"title" : "الدولة" , "boxTitle" : "curr" ,  "BoxDes": "الرجاء اختيار الدولة و سيتم حساب الذكاة بعملة الدولة المختارة يرجى التحقق من كود العملة الموضح  اعلاه فبل الضعط على التالى " , "head" :"يرجى إختيار دولة الإقامة "}',
+            buttonText: 'اختيار',
+            options: Newoptions
+        },
+        event
+    )
+    bp.events.replyToEvent(event, payloads)
+}
+
+return myAction(arr)
